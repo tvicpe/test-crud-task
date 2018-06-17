@@ -1,0 +1,39 @@
+<div class="header-btns text-right">
+  <a class="btn btn-success" role="button" [routerLink]="['/add']">Add post</a>
+  <button type="button" class="btn btn-secondary" (click)="reloadData()">Reload Data</button>
+</div>
+
+
+<h3>Posts list</h3>
+<div *ngIf="!loading" class="posts-list table-responsive">
+  <table class="table table-striped" *ngIf="!error && posts && posts.length > 0">
+    <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Title</th>
+      <th scope="col">Updated At</th>
+      <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let post of posts">
+      <th scope="row">{{post.id}}</th>
+      <td>{{post.title}}</td>
+      <td>{{post.updated_at | date:'medium'}}</td>
+      <td class="text-right">
+        <a class="btn btn-info" role="button" [routerLink]="['/details', post.id]">View details</a>
+        <a class="btn btn-success" role="button" [routerLink]="['/edit', post.id]">Edit</a>
+        <button type="button" class="btn btn-danger">Delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div class="text-center text-warning" *ngIf="!error && (!posts || !posts.length)">No data!</div>
+  <div class="text-center text-danger" *ngIf="error">{{error}}</div>
+</div>
+
+<app-loading *ngIf="loading"></app-loading>
+
+
+

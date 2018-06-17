@@ -1,0 +1,12 @@
+.posts-list {
+  width: 100%;
+}
+.posts-list .btn{
+  margin-right: 10px;
+}
+.header-btns {
+  margin-bottom: 15px;
+}
+.header-btns .btn {
+  margin-left: 10px;
+}

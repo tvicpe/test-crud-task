@@ -1,0 +1,72 @@
+<app-btn-back-dashboard></app-btn-back-dashboard>
+
+<ng-container *ngIf="!added && !edited && postForm">
+  <h4 class="text-center">Add new post</h4>
+  <div class="text-center text-danger" *ngIf="error">{{error}}</div>
+  <form [formGroup]="postForm" (ngSubmit)="onSubmit()"
+        [ngClass]="{'was-validated': submited}">
+    <div class="form-group">
+      <label for="formTitle">Title</label>
+      <input type="text" class="form-control" id="formTitle"
+             formControlName="title" required>
+      <div class="invalid-feedback">
+        Title is required
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="formContent">Content</label>
+      <textarea class="form-control" id="formContent" rows="3"
+                formControlName="content" required></textarea>
+      <div class="invalid-feedback">
+        Content is required
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col-md-6 mb-3">
+        <label for="formImageUrl">Image URL</label>
+        <input type="text" class="form-control" id="formImageUrl"
+               placeholder="http://..." formControlName="image_url" required>
+        <div class="invalid-feedback">
+          Image URL is required
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6 mb-3">
+        <label for="formLat">Lat</label>
+        <input type="text" class="form-control" id="formLat"
+               formControlName="lat" required>
+        <div class="invalid-feedback">
+          Lat is required
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6 mb-3">
+        <label for="formLong">Long</label>
+        <input type="text" class="form-control" id="formLong"
+               formControlName="long" required>
+        <div class="invalid-feedback">
+          Long is required
+        </div>
+      </div>
+    </div>
+    <div class="text-center">
+      <button type="submit" class="btn btn-success" [disabled]="postForm.pristine || loading">
+        <span *ngIf="loading">Loading...</span>
+        <span *ngIf="!loading">Save</span>
+      </button>
+    </div>
+  </form>
+</ng-container>
+
+<div *ngIf="(edited || added) && post">
+  <div *ngIf="added" class="text-success text-center">
+    The item <a [routerLink]="['/details', post.id]">{{post.title}}</a> has been added
+  </div>
+  <div *ngIf="edited" class="text-success text-center">
+    The item <a [routerLink]="['/details', post.id]">{{post.title}}</a> has been edited!
+  </div>
+
+  <div class="text-center">
+    <button type="button" class="btn btn-success" (click)="resetForm()">Add new item</button>
+  </div>
+</div>
+
+

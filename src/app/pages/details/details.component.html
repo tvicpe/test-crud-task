@@ -1,0 +1,29 @@
+<div class="header-btns">
+  <app-btn-back-dashboard></app-btn-back-dashboard>
+  <div class="float-right actions-btns" *ngIf="post">
+    <a class="btn btn-success" role="button" [routerLink]="['/edit', post.id]">Edit</a>
+    <button type="button" class="btn btn-danger">Delete</button>
+    <button type="button" class="btn btn-secondary" (click)="reloadData()">Reload Data</button>
+  </div>
+</div>
+
+<div *ngIf="!loading">
+  <div class="post-container" *ngIf="post">
+    <div class="text-right text-muted">
+      Updated at: {{post.updated_at | date:'medium'}}
+    </div>
+    <img src="{{post.image_url}}" class="rounded float-left post-img" width="300px">
+
+    <h1 class="display-4">{{post.title}}</h1>
+    <p>{{post.content}}</p>
+    <div class="text-right">
+      <a class="btn btn-success" role="button" target="_blank"
+      href="https://www.google.com/maps/search/{{post.lat}},{{post.long}}">View on map</a>
+    </div>
+  </div>
+
+  <div class="text-center text-warning" *ngIf="!error && !post">No data!</div>
+  <div class="text-center text-danger" *ngIf="error">{{error}}</div>
+</div>
+
+<app-loading *ngIf="loading"></app-loading>

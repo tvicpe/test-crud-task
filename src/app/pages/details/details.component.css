@@ -1,0 +1,12 @@
+.header-btns {
+  overflow: hidden;
+}
+.actions-btns .btn {
+  margin-left: 10px;
+}
+.post-container {
+  overflow: hidden;
+}
+.post-img {
+  margin-right: 10px;
+}
