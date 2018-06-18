@@ -50,6 +50,11 @@ export class ApiService {
     return this.put<PostType>(postUrl, payload,`Request ${postUrl} failed`);
   }
 
+  deletePost(id: number): Observable<ApiResponse<PostType>> {
+    let postUrl = `${Config.postsUrl}/${id}`;
+    return this.delete<PostType>(postUrl,`Request ${postUrl} failed`);
+  }
+
   private get<T>(url: string, errorMsg?: string, defaultResponse?: T): Observable<ApiResponse<T>> {
     return this.http.get<T>(url).pipe(
       map((response: T): ApiResponse<T> => this.formatResponse(response)),
@@ -66,6 +71,13 @@ export class ApiService {
 
   private put<T>(url: string, payload:{post:T}, errorMsg?: string, defaultResponse?: T): Observable<ApiResponse<T>> {
     return this.http.put<T>(url, payload, this.httpOptions).pipe(
+      map((response: T): ApiResponse<T> => this.formatResponse(response)),
+      catchError(this.handleError<T>(errorMsg, defaultResponse))
+    );
+  }
+
+  private delete<T>(url: string, errorMsg?: string, defaultResponse?: T): Observable<ApiResponse<T>> {
+    return this.http.delete<T>(url, this.httpOptions).pipe(
       map((response: T): ApiResponse<T> => this.formatResponse(response)),
       catchError(this.handleError<T>(errorMsg, defaultResponse))
     );

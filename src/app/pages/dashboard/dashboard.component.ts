@@ -1,25 +1,30 @@
-import { Component, OnInit } from '@angular/core';
-import { ApiResponse, ApiService } from '../../services/api.service';
-import { PostType } from '../../model/Post';
+import {Component, OnInit} from '@angular/core';
+import {ApiResponse, ApiService} from '../../services/api.service';
+import {PostType} from '../../model/Post';
+import {Config} from '../../config/config';
+import {RxPubSub} from 'rx-pubsub';
+import {PubSub} from '../../util/pub-sub';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent extends PubSub implements OnInit {
   posts: PostType[];
   error: string;
   loading: boolean = false;
 
   constructor(private api: ApiService) {
+    super();
   }
 
   ngOnInit() {
     this.loadData();
+    this.initSubscriber();
   }
 
-  reloadData():void{
+  reloadData(): void {
     this.loadData();
   }
 
@@ -38,5 +43,12 @@ export class DashboardComponent implements OnInit {
       this.loading = false;
     });
   }
+
+  initSubscriber() {
+    this.modalSubscriber = RxPubSub.subscribe(Config.pubSubEvents.deleteConfirmed, () => {
+      this.reloadData();
+    });
+  }
+
 
 }

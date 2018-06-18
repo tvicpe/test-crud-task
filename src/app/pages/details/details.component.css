@@ -1,7 +1,8 @@
 .header-btns {
   overflow: hidden;
 }
-.actions-btns .btn {
+.actions-btns .btn,
+.action-btn {
   margin-left: 10px;
 }
 .post-container {

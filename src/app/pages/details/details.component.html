@@ -2,7 +2,7 @@
   <app-btn-back-dashboard></app-btn-back-dashboard>
   <div class="float-right actions-btns" *ngIf="post">
     <a class="btn btn-success" role="button" [routerLink]="['/edit', post.id]">Edit</a>
-    <button type="button" class="btn btn-danger">Delete</button>
+    <app-delete-btn class="action-btn" [deletePost]="post"></app-delete-btn>
     <button type="button" class="btn btn-secondary" (click)="reloadData()">Reload Data</button>
   </div>
 </div>

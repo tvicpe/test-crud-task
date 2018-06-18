@@ -11,6 +11,8 @@ import { RoutingModule } from './modules/routing/routing.module';
 import { LoadingComponent } from './components/loading/loading.component';
 import { AddComponent } from './pages/add/add.component';
 import { BtnBackDashboardComponent } from './components/btn-back-dashboard/btn-back-dashboard.component';
+import { DeleteBtnComponent } from './components/delete-btn/delete-btn.component';
+import { ModalDeleteComponent } from './components/modal-delete/modal-delete.component';
 
 
 @NgModule({
@@ -22,6 +24,8 @@ import { BtnBackDashboardComponent } from './components/btn-back-dashboard/btn-b
     LoadingComponent,
     AddComponent,
     BtnBackDashboardComponent,
+    DeleteBtnComponent,
+    ModalDeleteComponent,
   ],
   imports: [
     BrowserModule,

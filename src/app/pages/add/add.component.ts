@@ -22,7 +22,6 @@ export class AddComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private api: ApiService,
               private route: ActivatedRoute, private router: Router) {
-
   }
 
   ngOnInit() {
@@ -51,7 +50,7 @@ export class AddComponent implements OnInit {
       this.loading = false;
       this.submited = false;
       this.post = null;
-      this.createForm()
+      this.createForm();
     }
   }
 
@@ -84,7 +83,7 @@ export class AddComponent implements OnInit {
         else if (response.error) {
           this.error = response.error || 'Error occurred while running the request!';
         }
-        else if(response) {
+        else if (response) {
           this.post = {...this.post, ...this.postForm.value};
         }
 

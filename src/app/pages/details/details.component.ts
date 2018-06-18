@@ -1,20 +1,24 @@
-import { Component, OnInit } from '@angular/core';
-import { ApiResponse, ApiService } from '../../services/api.service';
-import { PostType } from '../../model/Post';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {ApiResponse, ApiService} from '../../services/api.service';
+import {PostType} from '../../model/Post';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
+import {Config} from '../../config/config';
+import {RxPubSub} from 'rx-pubsub';
+import {PubSub} from '../../util/pub-sub';
 
 @Component({
   selector: 'app-details',
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.css']
 })
-export class DetailsComponent implements OnInit {
-  private postId:number;
+export class DetailsComponent extends PubSub implements OnInit {
+  private postId: number;
   post: PostType;
   error: string;
   loading: boolean = false;
 
-  constructor(private api: ApiService, private route: ActivatedRoute) {
+  constructor(private api: ApiService, private route: ActivatedRoute, private router: Router) {
+    super();
   }
 
   ngOnInit() {
@@ -24,6 +28,7 @@ export class DetailsComponent implements OnInit {
         this.loadData();
       }
     );
+    this.initSubscriber();
   }
 
   reloadData(): void {
@@ -42,8 +47,13 @@ export class DetailsComponent implements OnInit {
       else if (response.error) {
         this.error = response.error || 'Error occurred during data loading!';
       }
-
       this.loading = false;
+    });
+  }
+
+  initSubscriber(): void {
+    this.modalSubscriber = RxPubSub.subscribe(Config.pubSubEvents.deleteConfirmed, () => {
+      this.router.navigate(['/dashboard']);
     });
   }
 

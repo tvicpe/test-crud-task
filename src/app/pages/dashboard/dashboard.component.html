@@ -23,7 +23,7 @@
       <td class="text-right">
         <a class="btn btn-info" role="button" [routerLink]="['/details', post.id]">View details</a>
         <a class="btn btn-success" role="button" [routerLink]="['/edit', post.id]">Edit</a>
-        <button type="button" class="btn btn-danger">Delete</button>
+        <app-delete-btn [deletePost]="post"></app-delete-btn>
       </td>
     </tr>
     </tbody>
@@ -35,5 +35,4 @@
 
 <app-loading *ngIf="loading"></app-loading>
 
-
-
+<a class="btn btn-success" role="button" (click)="redirect()">Edit</a>
