@@ -45,8 +45,12 @@ export class DashboardComponent extends PubSub implements OnInit {
   }
 
   initSubscriber() {
-    this.modalSubscriber = RxPubSub.subscribe(Config.pubSubEvents.deleteConfirmed, () => {
-      this.reloadData();
+    this.modalSubscriber = RxPubSub.subscribe(Config.pubSubEvents.deleteConfirmed, (data) => {
+      if (data) {
+        // reset publish event
+        RxPubSub.publish(Config.pubSubEvents.deleteConfirmed, false);
+        this.reloadData();
+      }
     });
   }
 

@@ -52,8 +52,12 @@ export class DetailsComponent extends PubSub implements OnInit {
   }
 
   initSubscriber(): void {
-    this.modalSubscriber = RxPubSub.subscribe(Config.pubSubEvents.deleteConfirmed, () => {
-      this.router.navigate(['/dashboard']);
+    this.modalSubscriber = RxPubSub.subscribe(Config.pubSubEvents.deleteConfirmed, (data: boolean) => {
+      if(data) {
+        // reset publish event
+        RxPubSub.publish(Config.pubSubEvents.deleteConfirmed, false);
+        this.router.navigate(['/dashboard']);
+      }
     });
   }
 
